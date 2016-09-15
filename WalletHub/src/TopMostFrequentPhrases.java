@@ -18,11 +18,12 @@ public class TopMostFrequentPhrases {
 
     private static Map<String, Integer> getTopMostFrequentPhrases(String fileName, String splitter, int top) throws IOException {
         Map<String, Integer> topPhrases = new LinkedHashMap<>();
-        String splitPattern = "(^\\s*)|(\\s*\\" + splitter + "\\s*)|(\\s*$)";
+        String splitPattern = "\\"+splitter; //"(^\\s*)|(\\s*\\" + splitter + "\\s*)|(\\s*$)";
 
         try (Stream<String> fileLines = Files.lines(Paths.get(fileName))) {
             fileLines.forEach(s ->
                     Arrays.stream(s.split(splitPattern))
+                            .map(String::trim)
                             .filter(w -> !w.isEmpty())
                             .forEach(w -> topPhrases.put(w, topPhrases.getOrDefault(w, 0) + 1)));
         }
