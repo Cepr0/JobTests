@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -6,7 +7,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TopMostFrequentPhrases {
     public static void main(String[] args) throws IOException {
@@ -20,8 +20,16 @@ public class TopMostFrequentPhrases {
         Map<String, Integer> topPhrases = new LinkedHashMap<>();
         String splitPattern = "\\"+splitter; //"(^\\s*)|(\\s*\\" + splitter + "\\s*)|(\\s*$)";
 
-        try (Stream<String> fileLines = Files.lines(Paths.get(fileName))) {
-            fileLines.forEach(s ->
+//        try (Stream<String> fileLines = Files.lines(Paths.get(fileName))) {
+//            fileLines.forEach(s ->
+//                    Arrays.stream(s.split(splitPattern))
+//                            .map(String::trim)
+//                            .filter(w -> !w.isEmpty())
+//                            .forEach(w -> topPhrases.put(w, topPhrases.getOrDefault(w, 0) + 1)));
+//        }
+//
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(fileName))) {
+            reader.lines().forEach(s ->
                     Arrays.stream(s.split(splitPattern))
                             .map(String::trim)
                             .filter(w -> !w.isEmpty())
