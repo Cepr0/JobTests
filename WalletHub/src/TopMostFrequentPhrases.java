@@ -29,11 +29,11 @@ public class TopMostFrequentPhrases {
 //        }
 //
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(fileName))) {
-            reader.lines().forEach(s ->
-                    Arrays.stream(s.split(splitPattern))
+            reader.lines().forEach(line ->
+                    Arrays.stream(line.split(splitPattern))
                             .map(String::trim)
-                            .filter(w -> !w.isEmpty())
-                            .forEach(w -> topPhrases.put(w, topPhrases.getOrDefault(w, 0) + 1)));
+                            .filter(phrase -> !phrase.isEmpty())
+                            .forEach(phrase -> topPhrases.put(phrase, topPhrases.getOrDefault(phrase, 0) + 1)));
         }
 
         return topPhrases.entrySet().stream()
