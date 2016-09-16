@@ -1,27 +1,27 @@
 # Capitalize all words in a given string
-CREATE FUNCTION initcap(inputString VARCHAR(255))
-  RETURNS VARCHAR(255) DETERMINISTIC
-  BEGIN
-    DECLARE len INT;
-    DECLARE i INT;
+create function initcap(str varchar(255))
+  returns varchar(255) deterministic
+  begin
+    declare len int;
+    declare i int;
 
-    SET len = CHAR_LENGTH(inputString);
-    SET inputString = LOWER(inputString);
-    SET i = 0;
+    set len = char_length(str);
+    set str = lower(str);
+    set i = 0;
 
-    WHILE (i < len) DO
-      IF (MID(inputString, i, 1) = ' ' OR i = 0)
-      THEN
-        IF (i < len)
-        THEN
-          SET inputString = CONCAT(LEFT(inputString, i), UPPER(MID(inputString, i + 1, 1)), RIGHT(inputString, len - i - 1));
-        END IF;
-      END IF;
-      SET i = i + 1;
-    END WHILE;
+    while (i < len) do
+      if (mid(str, i, 1) = ' ' or i = 0)
+      then
+        if (i < len)
+        then
+          set str = concat(left(str, i), upper(mid(str, i + 1, 1)), right(str, len - i - 1));
+        end if;
+      end if;
+      set i = i + 1;
+    end while;
 
-    RETURN inputString;
-  END;
+    return str;
+  end;
 
 # Usage example
 select initcap('UNITED states Of AmERIca');
